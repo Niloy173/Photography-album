@@ -1,14 +1,20 @@
 
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { projectFirestore } from "../Firebase/config";
 
-const useFireStore = (collectionName) => {
+const useFireStore = (collectionName, queryText=null) => {
   const [docs,setDocs] = useState([]);
 
   useEffect(() => {
+
+      let q;
     
-      const q = query(collection(projectFirestore,"images"), orderBy('createdAt','desc'));
+      if(queryText){
+        q = query(collection(projectFirestore,collectionName), where("uploader.email", '==', queryText));
+      }else{
+        q = query(collection(projectFirestore,collectionName), orderBy('createdAt','desc'));
+      }
       const unsub = onSnapshot(q, (snap) => {
         const documents = [];
         snap.forEach(doc => {
@@ -19,7 +25,7 @@ const useFireStore = (collectionName) => {
     
        return () => unsub();
 
-  },[collectionName]);
+  },[collectionName,queryText]);
 
   return {docs};
 }
