@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -17,6 +17,7 @@ import { AuthContext } from './context/AuthContext';
 function App() {
 
   const {user} = useContext(AuthContext);
+  const [selected , setSelectedImage] = useState(null);
   
   return (
     
@@ -25,10 +26,10 @@ function App() {
         <main>
           
           <Routes>
-            <Route path="/" element={<Main/>} />
+            <Route path="/" element={<Main selected={selected} setSelectedImage={setSelectedImage}/>} />
             <Route path="/login" element={user? <Navigate to={"/"} />: <Login/>} />
             {/*<Route path="/about" element={<h1>I am about page</h1>} />*/}
-            <Route path="/profile" element={user ?<Profile/>: <Navigate to={"/"} />} />
+            <Route path="/profile" element={user ? <Profile selected={selected} setSelectedImage={setSelectedImage} />: <Navigate to={"/"} />} />
 
             <Route path="*" element={<div style={{
               padding: "70px 0",
