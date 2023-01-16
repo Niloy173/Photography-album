@@ -43,8 +43,8 @@ const Gallery = ({setSelectedImage}) => {
               </div>
               
               <div className="d-flex flex-column">
-                <h4 className="profile_name lead fs-4 fw-bolder mb-0">{doc.uploader["profile"]}</h4>
-                <span className="fs-6">{doc.createdAt?.toDate().toDateString()}</span>
+                <h4 className="profile_name lead fs-5 fw-bolder mb-0 w-auto">{doc.uploader["profile"].replace(/[^a-zA-Z]/g,' ')}</h4>
+                <span className="fs-6 lead">{doc.createdAt?.toDate().toDateString()}</span>
               </div>
               
 
