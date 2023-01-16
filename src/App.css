@@ -17,6 +17,11 @@ img {
   cursor: pointer;
 }
 
+.profile {
+  width: 25px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
 .border {
   border: 1px solid black;
 }
@@ -54,6 +59,12 @@ img {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.button_div {
+  bottom: 24px;
+  left: 12px;
+  border: none;
+}
+
 /* modal style */
 .backdrop {
   position: fixed;
@@ -84,5 +95,14 @@ img {
 @media screen and (max-width: 600px) {
   .loading {
     width: 100%;
+  }
+
+  .profile {
+    width: 35px;
+  }
+
+  .backdrop img {
+    max-width: 80%;
+    margin: 150px auto;
   }
 }
