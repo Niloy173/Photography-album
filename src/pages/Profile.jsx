@@ -61,7 +61,7 @@ const Profile = ({selected,setSelectedImage}) => {
           <h2 className="text-uppercase lead fs-2">User Profile</h2>
 
           <img className="w-25 rounded-circle border-2 mb-4 mt-2" src={user.photoURL} alt={user.displayName} />
-          <p className="fs-4 mb-2">{user.displayName}</p>
+          <p className="fs-4 mb-2">{user.displayName.replace(/[^a-zA-Z]/g,' ')}</p>
           <p className="text-muted fs-4 mb-2">{user.email}</p>
         
         </div>
