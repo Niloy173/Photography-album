@@ -6,10 +6,9 @@ import Modal from '../Components/Modal';
 import Progress from '../Components/Progress';
 import { AuthContext } from '../context/AuthContext';
 
-const Main = () => {
+const Main = ({selected, setSelectedImage}) => {
 
   const [file,setFile] = useState(null);
-  const [selected , setSelectedImage] = useState(null);
   const types = ['image/png', 'image/jpeg', 'image/jpg'];
 
   const {user} = useContext(AuthContext);
