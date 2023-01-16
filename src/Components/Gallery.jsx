@@ -49,7 +49,7 @@ const Gallery = ({setSelectedImage}) => {
               
 
             </motion.div>
-            <span className="center">Click to view large</span>
+            <span className="center">Click to view full image</span>
           </motion.div>
           )
 

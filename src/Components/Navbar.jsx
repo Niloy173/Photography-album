@@ -1,10 +1,22 @@
+import { signOut } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { auth } from '../Firebase/config';
 
 const Navbar = () => {
 
-  const {user} = useContext(AuthContext);
+  const {user,dispatch} = useContext(AuthContext);
+
+  const handleLogOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch({ type: 'LOGOUT_STATE' });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     
@@ -24,11 +36,21 @@ const Navbar = () => {
           
           {
             user?.photoURL ?
-            (<li className="nav-item">
+            (<React.Fragment>
+
+              <li className="nav-item">
               <Link className="nav-link" to={"/profile"}>
-                <img className="rounded-circle w-25" src={user.photoURL} alt={user.displayName} />
+                <img className="profile" src={user.photoURL} alt={user.displayName} />
               </Link>
-            </li>):
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to={"/"} onClick={handleLogOut}>LogOut</Link>
+            </li>
+              
+            
+              </React.Fragment>
+            ):
             (<li className="nav-item">
             <Link className="nav-link" to={"/login"}>Login</Link>
              </li>)
