@@ -1,11 +1,42 @@
+import { saveAs } from 'file-saver';
 import { motion } from 'framer-motion';
+import { useContext } from 'react';
+import { BsDownload } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import Loading from '../assets/loading.svg';
+import { AuthContext } from '../context/AuthContext';
 import useFireStore from "../hooks/useFireStore";
 
 const Gallery = ({setSelectedImage}) => {
 
 
   const {docs} = useFireStore("images")
+  const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const errorToastMessage = (message) => {
+    toast.error(message,{
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+
+  const downloadImage = async (imageUrl) => {
+    try {
+
+      if(user){
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        saveAs(blob, 'download-image.jpg');
+      }else{
+        navigate("/login");
+      }
+      
+    } catch (error) {
+      console.log(error);
+      errorToastMessage(error);
+    }
+  }
   
 
   return (
@@ -32,6 +63,17 @@ const Gallery = ({setSelectedImage}) => {
             className="w-100 rounded-3 shadow-1 mb-4 cover"
             alt="gallery"
             />
+
+            <motion.span 
+            
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 1}}
+             onClick={() => downloadImage(doc.url)} title='download' 
+             className='position-absolute download'>{<BsDownload/>}
+             
+            </motion.span>
+
             <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -68,6 +110,8 @@ const Gallery = ({setSelectedImage}) => {
 
       
     </div>
+
+    <ToastContainer/>
   </div>
   )
 }
