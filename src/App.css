@@ -65,6 +65,18 @@ img {
   border: none;
 }
 
+.download {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  top: 0;
+  right: 12px;
+  font-size: 1rem;
+  z-index: 99;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* modal style */
 .backdrop {
   position: fixed;
